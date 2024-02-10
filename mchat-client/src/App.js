@@ -1,25 +1,29 @@
 import logo from "./logo.svg";
-import "./App.css";
 
-function App() {
+import React, { useState } from 'react';
+import './App.css';
+import ChatWindow from "./chatwindow/chatwindow";
+import UserList from "./userlist/userlist";
+const App = () => {
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const users = [
+    { id: 1, name: 'Friend 1' },
+    { id: 2, name: 'Friend 2' },
+    { id: 3, name: 'Friend 3' },
+    // Add more users as needed
+  ];
+
+  const handleUserClick = (user) => {
+    setSelectedUser(user);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Welcome Back
-        </a>
-      </header>
+    <div className="app">
+      <UserList users={users} onUserClick={handleUserClick} />
+      {selectedUser && <ChatWindow selectedUser={selectedUser} />}
     </div>
   );
-}
+};
 
 export default App;
